@@ -2,136 +2,242 @@ import SearchBar from '@/components/SearchBar';
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden">
-      {/* Enhanced Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 dark:from-gray-900 dark:via-blue-900 dark:to-indigo-900"></div>
-
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating Orbs */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-300/20 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-float anim-delay-2s"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-300/20 rounded-full blur-3xl animate-float anim-delay-4s"></div>
-
-        {/* World Map Subtle Pattern */}
-        <div className="absolute inset-0 opacity-5 dark:opacity-10">
-          <svg viewBox="0 0 1200 600" className="w-full h-full">
-            {/* Simplified world map paths */}
-            <path d="M200,200 Q300,150 400,200 T600,200 Q700,180 800,200 L1000,200 L1000,400 Q900,420 800,400 Q700,380 600,400 T400,400 Q300,420 200,400 Z"
-                  fill="currentColor" opacity="0.3"/>
-            <circle cx="300" cy="180" r="3" fill="currentColor" opacity="0.6" className="animate-pulse-gentle"/>
-            <circle cx="600" cy="160" r="3" fill="currentColor" opacity="0.6" className="animate-pulse-gentle anim-delay-1s"/>
-            <circle cx="850" cy="200" r="3" fill="currentColor" opacity="0.6" className="animate-pulse-gentle anim-delay-2s"/>
-          </svg>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="relative flex min-h-screen flex-col items-center justify-center p-8">
-        <div className="text-center max-w-4xl mx-auto">
-          {/* Hero Section */}
-          <div className="mb-12">
-            {/* Main Title */}
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="text-6xl animate-float">🌍</div>
-              <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                Country Dashboard
-              </h1>
+    <main className="min-h-screen bg-white dark:bg-slate-900">
+      {/* Professional Header */}
+      <header className="border-b border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">Country Dashboard</h1>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Global Data Analytics</p>
+              </div>
             </div>
 
-            {/* Subtitle */}
-            <p className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 mb-4 font-medium">
-              Discover the world at your fingertips
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                Live Data
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="responsive-section">
+        <div className="responsive-container max-w-7xl mx-auto text-center">
+          <div className="animate-fade-in">
+            <h1 className="responsive-text-hero text-gray-900 dark:text-gray-100 mb-6">
+              Comprehensive Country
+              <span className="text-blue-600 block md:inline"> Intelligence</span>
+            </h1>
+
+            <p className="responsive-text-body text-gray-600 dark:text-gray-400 mb-8 max-w-4xl mx-auto">
+              Access real-time country data, weather conditions, and economic indicators in a professional dashboard designed for analysts and decision-makers.
             </p>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Get instant access to any country's weather conditions, live currency exchange rates, and essential details — all beautifully presented in one comprehensive dashboard
-            </p>
+
+            <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-4 md:gap-6 text-sm text-gray-500 dark:text-gray-400 mb-10">
+              <span className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 rounded-full">
+                <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Real-time Data
+              </span>
+              <span className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-full">
+                <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                195+ Countries
+              </span>
+              <span className="flex items-center gap-2 px-4 py-2 bg-purple-50 dark:bg-purple-900/20 rounded-full">
+                <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Professional Analytics
+              </span>
+            </div>
           </div>
 
           {/* Search Section */}
-          <div className="mb-12">
+          <div className="animate-slide-up stagger-delay-1 mb-8 sm:mb-16">
             <SearchBar />
           </div>
+        </div>
+      </section>
 
-          {/* Feature Highlights */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="p-6 rounded-2xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-white/40 dark:border-gray-600/40 hover:bg-white/80 dark:hover:bg-gray-700/80 transition-all duration-300 group">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🌤️</div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">
-                Live Weather
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Real-time weather conditions, temperature, and forecasts for any capital city
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-white/40 dark:border-gray-600/40 hover:bg-white/80 dark:hover:bg-gray-700/80 transition-all duration-300 group">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">💱</div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">
-                Currency Rates
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Up-to-date exchange rates against major currencies with trend indicators
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-white/40 dark:border-gray-600/40 hover:bg-white/80 dark:hover:bg-gray-700/80 transition-all duration-300 group">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🏛️</div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">
-                Country Details
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Essential information including capitals, languages, regions, and more
-              </p>
-            </div>
-          </div>
-
-          {/* Popular Countries */}
-          <div className="mb-8">
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 font-medium">
-              Popular destinations to explore:
+      {/* Features Grid */}
+      <section className="responsive-section bg-gray-50 dark:bg-slate-800">
+        <div className="responsive-container max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="responsive-text-subtitle text-gray-900 dark:text-gray-100 mb-4">
+              Comprehensive Data Sources
+            </h2>
+            <p className="responsive-text-body text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+              Integrated data from trusted sources to provide you with accurate, up-to-date country insights for professional analysis.
             </p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              {[
-                { name: 'France', flag: '🇫🇷' },
-                { name: 'Japan', flag: '🇯🇵' },
-                { name: 'Brazil', flag: '🇧🇷' },
-                { name: 'Germany', flag: '🇩🇪' },
-                { name: 'Nigeria', flag: '🇳🇬' },
-                { name: 'Australia', flag: '🇦🇺' },
-                { name: 'India', flag: '🇮🇳' },
-                { name: 'Canada', flag: '🇨🇦' }
-              ].map((country) => (
-                <a
-                  key={country.name}
-                  href={`/country/${encodeURIComponent(country.name)}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
-                           border border-white/40 dark:border-gray-600/40 rounded-full
-                           hover:bg-white/80 dark:hover:bg-gray-700/80 hover:scale-105
-                           transition-all duration-300 text-sm font-medium
-                           text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
-                >
-                  <span className="text-base">{country.flag}</span>
-                  {country.name}
-                </a>
-              ))}
+          </div>
+
+          <div className="responsive-grid">
+            {/* Weather Analytics */}
+            <div className="card-primary p-8 text-center animate-slide-up stagger-delay-1">
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mx-auto mb-6">
+                <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                </svg>
+              </div>
+              <h3 className="text-heading text-gray-900 dark:text-gray-100 mb-4">
+                Weather Intelligence
+              </h3>
+              <p className="text-body text-gray-600 dark:text-gray-400 mb-6">
+                Real-time weather conditions and climate data for capital cities worldwide, powered by Open-Meteo API.
+              </p>
+              <div className="space-y-2 text-caption text-gray-500 dark:text-gray-400">
+                <div className="flex justify-between">
+                  <span>Temperature & Humidity</span>
+                  <span className="status-success">✓</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Wind Conditions</span>
+                  <span className="status-success">✓</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Weather Descriptions</span>
+                  <span className="status-success">✓</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Economic Data */}
+            <div className="card-primary p-8 text-center animate-slide-up stagger-delay-2">
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mx-auto mb-6">
+                <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                </svg>
+              </div>
+              <h3 className="text-heading text-gray-900 dark:text-gray-100 mb-4">
+                Currency Exchange
+              </h3>
+              <p className="text-body text-gray-600 dark:text-gray-400 mb-6">
+                Live currency exchange rates with historical trends and market indicators via Frankfurter API.
+              </p>
+              <div className="space-y-2 text-caption text-gray-500 dark:text-gray-400">
+                <div className="flex justify-between">
+                  <span>Real-time Rates</span>
+                  <span className="status-success">✓</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Major Currency Pairs</span>
+                  <span className="status-success">✓</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Market Analysis</span>
+                  <span className="status-success">✓</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Geographic Data */}
+            <div className="card-primary p-8 text-center animate-slide-up stagger-delay-3">
+              <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mx-auto mb-6">
+                <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <h3 className="text-heading text-gray-900 dark:text-gray-100 mb-4">
+                Geographic Intelligence
+              </h3>
+              <p className="text-body text-gray-600 dark:text-gray-400 mb-6">
+                Comprehensive country profiles with demographics, languages, and regional data from REST Countries API.
+              </p>
+              <div className="space-y-2 text-caption text-gray-500 dark:text-gray-400">
+                <div className="flex justify-between">
+                  <span>Population & Demographics</span>
+                  <span className="status-success">✓</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Languages & Cultures</span>
+                  <span className="status-success">✓</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Regional Classifications</span>
+                  <span className="status-success">✓</span>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Footer Info */}
-          <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
-            <p>Powered by REST Countries, Open-Meteo, and Frankfurter APIs</p>
-            <p>Real-time data • Always up-to-date • Beautifully presented</p>
+      {/* Popular Countries */}
+      <section className="responsive-section">
+        <div className="responsive-container max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="responsive-text-subtitle text-gray-900 dark:text-gray-100 mb-4">
+              Quick Access
+            </h2>
+            <p className="responsive-text-body text-gray-600 dark:text-gray-400">
+              Popular countries for instant data access and analysis
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+            {[
+              { name: 'United States', code: 'US' },
+              { name: 'United Kingdom', code: 'GB' },
+              { name: 'Germany', code: 'DE' },
+              { name: 'France', code: 'FR' },
+              { name: 'Japan', code: 'JP' },
+              { name: 'Australia', code: 'AU' },
+              { name: 'Canada', code: 'CA' },
+              { name: 'Brazil', code: 'BR' }
+            ].map((country, index) => (
+              <a
+                key={country.name}
+                href={`/country/${encodeURIComponent(country.name)}`}
+                className="card-primary p-4 text-center hover:shadow-lg transition-all duration-200 animate-scale-in"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="text-2xl mb-2">
+                  <div className="w-8 h-6 mx-auto rounded bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-caption">
+                    {country.code}
+                  </div>
+                </div>
+                <p className="text-caption font-medium text-gray-900 dark:text-gray-100">
+                  {country.name}
+                </p>
+              </a>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-gray-400 dark:border-gray-600 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-gray-400 dark:bg-gray-600 rounded-full mt-2 animate-pulse-gentle"></div>
+      {/* Footer */}
+      <footer className="bg-gray-50 dark:bg-slate-800 border-t border-gray-200 dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              Powered by trusted data sources
+            </p>
+            <div className="flex flex-wrap justify-center gap-6 text-small text-gray-500 dark:text-gray-400">
+              <span>REST Countries API</span>
+              <span>•</span>
+              <span>Open-Meteo Weather</span>
+              <span>•</span>
+              <span>Frankfurter Exchange</span>
+            </div>
+          </div>
         </div>
-      </div>
+      </footer>
     </main>
   );
 }

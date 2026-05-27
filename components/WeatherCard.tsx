@@ -6,53 +6,68 @@ interface WeatherCardProps {
   capital?: string;
 }
 
-// Helper function to get weather condition class
-function getWeatherConditionClass(weatherCode: number): string {
-  if (weatherCode === 0 || weatherCode === 1) return 'weather-sunny';
-  if (weatherCode >= 2 && weatherCode <= 3) return 'weather-cloudy';
-  if (weatherCode >= 51 && weatherCode <= 67) return 'weather-rainy';
-  if (weatherCode >= 71 && weatherCode <= 77) return 'weather-snowy';
-  if (weatherCode >= 95) return 'weather-stormy';
-  return 'weather-cloudy';
-}
-
-// Helper function to get temperature color
-function getTemperatureColor(temp: number): string {
-  if (temp >= 30) return 'text-red-500 dark:text-red-400';
-  if (temp >= 20) return 'text-orange-500 dark:text-orange-400';
-  if (temp >= 10) return 'text-yellow-500 dark:text-yellow-400';
-  if (temp >= 0) return 'text-blue-500 dark:text-blue-400';
-  return 'text-indigo-500 dark:text-indigo-400';
+// Helper function to get weather icon SVG
+function getWeatherIcon(weatherCode: number): JSX.Element {
+  if (weatherCode === 0 || weatherCode === 1) {
+    return (
+      <svg className="w-12 h-12 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+    );
+  }
+  if (weatherCode >= 2 && weatherCode <= 3) {
+    return (
+      <svg className="w-12 h-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+      </svg>
+    );
+  }
+  if (weatherCode >= 51 && weatherCode <= 67) {
+    return (
+      <svg className="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 13v-1a4 4 0 014-4 4 4 0 014 4v1m0 6H8a2 2 0 01-2-2V9a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2z" />
+      </svg>
+    );
+  }
+  return (
+    <svg className="w-12 h-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+    </svg>
+  );
 }
 
 export default function WeatherCard({ weather, capital }: WeatherCardProps) {
   if (!weather) {
     return (
-      <div className="card-enhanced rounded-2xl p-6 relative overflow-hidden group animate-slide-up">
-        {/* Default Weather Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-100/20 to-gray-300/20 dark:from-gray-800/20 dark:to-gray-900/20"></div>
-
-        <div className="relative">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-              <span className="text-xl">🌤️</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-              Weather{capital && ` in ${capital}`}
+      <div className="card-primary p-6 h-full">
+        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-600">
+          <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+            <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-heading font-bold text-gray-900 dark:text-gray-100">
+              Weather Data
             </h3>
-          </div>
-
-          <div className="text-center py-12">
-            <div className="text-6xl mb-4 opacity-50">☁️</div>
-            <p className="text-lg text-gray-600 dark:text-gray-400 font-medium">
-              Weather data unavailable
+            <p className="text-caption text-gray-600 dark:text-gray-400">
+              {capital ? `${capital} Weather` : 'Weather Information'}
             </p>
-            {capital && (
-              <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
-                Unable to fetch weather for {capital}
-              </p>
-            )}
           </div>
+        </div>
+
+        <div className="text-center py-8">
+          <div className="w-16 h-16 mx-auto bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center mb-4">
+            <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+            </svg>
+          </div>
+          <p className="text-body text-gray-600 dark:text-gray-400">
+            Weather data unavailable
+          </p>
+          <p className="text-caption text-gray-500 dark:text-gray-500 mt-2">
+            Unable to fetch current weather conditions
+          </p>
         </div>
       </div>
     );
@@ -60,113 +75,91 @@ export default function WeatherCard({ weather, capital }: WeatherCardProps) {
 
   const { current_weather } = weather;
   const weatherInfo = getWeatherDescription(current_weather.weathercode);
-  const weatherClass = getWeatherConditionClass(current_weather.weathercode);
-  const tempColor = getTemperatureColor(current_weather.temperature);
 
   return (
-    <div className="card-enhanced rounded-2xl p-6 relative overflow-hidden group animate-slide-up">
-      {/* Weather Condition Background */}
-      <div className={`absolute inset-0 ${weatherClass} opacity-10 group-hover:opacity-20 transition-opacity duration-500`}></div>
-
+    <div className="card-primary p-6 h-full">
       {/* Header Section */}
-      <div className="relative flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 rounded-full bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm flex items-center justify-center ring-2 ring-white/30 dark:ring-gray-600/30">
-          <span className="text-xl">{weatherInfo.icon}</span>
+      <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-600">
+        <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+          <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+          </svg>
         </div>
         <div>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-            Weather
+          <h3 className="text-heading font-bold text-gray-900 dark:text-gray-100">
+            Current Weather
           </h3>
-          {capital && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-              in {capital}
-            </p>
-          )}
+          <p className="text-caption text-gray-600 dark:text-gray-400">
+            {capital ? `${capital}` : 'Weather Information'}
+          </p>
         </div>
       </div>
 
       {/* Main Weather Display */}
-      <div className="relative text-center mb-8">
-        {/* Large Weather Icon */}
-        <div className="text-8xl mb-4 animate-float">
-          {weatherInfo.icon}
+      <div className="text-center mb-6">
+        {/* Weather Icon */}
+        <div className="flex justify-center mb-4">
+          {getWeatherIcon(current_weather.weathercode)}
         </div>
 
-        {/* Temperature Display */}
-        <div className={`text-5xl font-bold mb-2 ${tempColor}`}>
-          {Math.round(current_weather.temperature)}°
+        {/* Temperature */}
+        <div className="text-display font-bold text-gray-900 dark:text-gray-100 mb-2">
+          {Math.round(current_weather.temperature)}°C
         </div>
 
-        <div className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-4">
+        <div className="text-subheading font-medium text-gray-700 dark:text-gray-300 mb-4">
           {weatherInfo.description}
         </div>
 
-        {/* Temperature Scale Indicator */}
-        <div className="flex justify-center">
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/40 dark:bg-gray-800/40 backdrop-blur-sm border border-white/30 dark:border-gray-600/30">
-            <span className="text-xs text-gray-600 dark:text-gray-400">°C</span>
-            <div className="w-16 h-2 bg-gradient-to-r from-blue-400 via-green-400 via-yellow-400 to-red-400 rounded-full relative">
-              <div
-                className="absolute w-3 h-3 bg-white rounded-full border-2 border-gray-400 -top-0.5 transform -translate-x-1.5"
-                style={{
-                  left: `${Math.max(0, Math.min(100, ((current_weather.temperature + 20) / 60) * 100))}%`
-                }}
-              ></div>
-            </div>
-          </div>
+        {/* Status Badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-caption font-medium">
+          <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+          Live Data
         </div>
       </div>
 
-      {/* Weather Details Grid */}
-      <div className="grid grid-cols-2 gap-4 relative">
+      {/* Weather Details */}
+      <div className="space-y-3">
         {/* Wind Speed */}
-        <div className="p-4 rounded-xl bg-white/40 dark:bg-gray-800/40 backdrop-blur-sm border border-white/30 dark:border-gray-600/30 text-center group-hover:bg-white/60 dark:group-hover:bg-gray-700/60 transition-all duration-300">
-          <div className="text-2xl mb-2">💨</div>
-          <div className="text-xl font-bold text-gray-900 dark:text-gray-100">
-            {current_weather.windspeed}
+        <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-slate-700 rounded-lg">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
+              <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h1a1 1 0 011 1v2M7 4H5a2 2 0 00-2 2v1a2 2 0 002 2h2M7 4h8M15 4V2a1 1 0 011-1h1a1 1 0 011 1v2M15 4h2a2 2 0 012 2v1a2 2 0 01-2 2h-2m-8 0v6h8V9M7 15l2-2m0 0l2 2m-2-2v6" />
+              </svg>
+            </div>
+            <span className="text-caption font-medium text-gray-700 dark:text-gray-300">
+              Wind Speed
+            </span>
           </div>
-          <div className="text-xs text-gray-600 dark:text-gray-400 font-semibold">
-            km/h
-          </div>
-          <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-            Wind Speed
-          </div>
+          <span className="text-caption font-bold text-gray-900 dark:text-gray-100">
+            {current_weather.windspeed} km/h
+          </span>
         </div>
 
-        {/* Feels Like Temperature */}
-        <div className="p-4 rounded-xl bg-white/40 dark:bg-gray-800/40 backdrop-blur-sm border border-white/30 dark:border-gray-600/30 text-center group-hover:bg-white/60 dark:group-hover:bg-gray-700/60 transition-all duration-300">
-          <div className="text-2xl mb-2">🌡️</div>
-          <div className={`text-xl font-bold ${tempColor}`}>
-            {Math.round(current_weather.temperature)}°
+        {/* Wind Direction */}
+        <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-slate-700 rounded-lg">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
+              <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+            </div>
+            <span className="text-caption font-medium text-gray-700 dark:text-gray-300">
+              Wind Direction
+            </span>
           </div>
-          <div className="text-xs text-gray-600 dark:text-gray-400 font-semibold">
-            Celsius
-          </div>
-          <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-            Temperature
-          </div>
-        </div>
-      </div>
-
-      {/* Weather Condition Badge */}
-      <div className="mt-6 relative">
-        <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold
-                        ${weatherClass === 'weather-sunny' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200' :
-                          weatherClass === 'weather-cloudy' ? 'bg-gray-100 dark:bg-gray-800/50 text-gray-800 dark:text-gray-200' :
-                          weatherClass === 'weather-rainy' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200' :
-                          weatherClass === 'weather-snowy' ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200' :
-                          'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200'}`}>
-          <span className="text-lg">{weatherInfo.icon}</span>
-          <span>Current: {weatherInfo.description}</span>
+          <span className="text-caption font-bold text-gray-900 dark:text-gray-100">
+            {current_weather.winddirection}°
+          </span>
         </div>
       </div>
 
-      {/* Ambient Glow Effect */}
-      <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-all duration-700 pointer-events-none
-                      ${weatherClass === 'weather-sunny' ? 'bg-gradient-to-br from-yellow-400/20 via-orange-400/20 to-red-400/20' :
-                        weatherClass === 'weather-rainy' ? 'bg-gradient-to-br from-blue-400/20 via-cyan-400/20 to-teal-400/20' :
-                        weatherClass === 'weather-snowy' ? 'bg-gradient-to-br from-blue-200/20 via-indigo-200/20 to-purple-200/20' :
-                        'bg-gradient-to-br from-gray-400/20 via-slate-400/20 to-zinc-400/20'}`}>
+      {/* Data Source */}
+      <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-600">
+        <p className="text-small text-gray-500 dark:text-gray-400 text-center">
+          Powered by Open-Meteo API
+        </p>
       </div>
     </div>
   );

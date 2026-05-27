@@ -6,169 +6,165 @@ interface CurrencyCardProps {
   currencyCode?: string;
 }
 
-// Helper function to get currency flag emoji
-function getCurrencyFlag(code: string): string {
-  const flagMap: Record<string, string> = {
-    'USD': '🇺🇸',
-    'EUR': '🇪🇺',
-    'GBP': '🇬🇧',
-    'JPY': '🇯🇵',
-    'CAD': '🇨🇦',
-    'AUD': '🇦🇺',
-    'CHF': '🇨🇭',
-    'CNY': '🇨🇳',
-    'SEK': '🇸🇪',
-    'NOK': '🇳🇴',
-    'DKK': '🇩🇰',
-    'INR': '🇮🇳',
-    'BRL': '🇧🇷',
-    'RUB': '🇷🇺',
-    'KRW': '🇰🇷',
-    'SGD': '🇸🇬',
-    'HKD': '🇭🇰',
-    'NZD': '🇳🇿',
-    'MXN': '🇲🇽',
-    'ZAR': '🇿🇦'
+// Helper function to get currency name
+function getCurrencyName(code: string): string {
+  const nameMap: Record<string, string> = {
+    'USD': 'US Dollar',
+    'EUR': 'Euro',
+    'GBP': 'British Pound',
+    'JPY': 'Japanese Yen',
+    'CAD': 'Canadian Dollar',
+    'AUD': 'Australian Dollar',
+    'CHF': 'Swiss Franc',
+    'CNY': 'Chinese Yuan',
+    'SEK': 'Swedish Krona',
+    'NOK': 'Norwegian Krone',
+    'DKK': 'Danish Krone',
+    'INR': 'Indian Rupee',
+    'BRL': 'Brazilian Real',
+    'RUB': 'Russian Ruble',
+    'KRW': 'South Korean Won',
+    'SGD': 'Singapore Dollar',
+    'HKD': 'Hong Kong Dollar',
+    'NZD': 'New Zealand Dollar',
+    'MXN': 'Mexican Peso',
+    'ZAR': 'South African Rand'
   };
-  return flagMap[code] || '💰';
+  return nameMap[code] || code;
 }
 
 // Helper function to simulate rate trends (in a real app, this would come from historical data)
 function getRateTrend(rate: number): { direction: 'up' | 'down' | 'neutral'; percentage: number } {
   // Mock trend calculation for demo purposes
   const trend = Math.random() > 0.5 ? 'up' : Math.random() > 0.3 ? 'down' : 'neutral';
-  const percentage = Math.random() * 5; // Random percentage change
+  const percentage = Math.random() * 2; // Random percentage change
   return { direction: trend as 'up' | 'down' | 'neutral', percentage };
 }
 
 export default function CurrencyCard({ currency, currencyCode }: CurrencyCardProps) {
   if (!currency) {
     return (
-      <div className="card-enhanced rounded-2xl p-6 relative overflow-hidden group animate-slide-up">
-        {/* Default Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-green-100/20 to-blue-100/20 dark:from-green-900/20 dark:to-blue-900/20"></div>
-
-        <div className="relative">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center">
-              <span className="text-xl text-white">💱</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+      <div className="card-primary p-6 h-full">
+        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-600">
+          <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900 flex items-center justify-center">
+            <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-heading font-bold text-gray-900 dark:text-gray-100">
               Exchange Rates
             </h3>
-          </div>
-
-          <div className="text-center py-12">
-            <div className="text-6xl mb-4 opacity-50">💸</div>
-            <p className="text-lg text-gray-600 dark:text-gray-400 font-medium">
-              Exchange rate data unavailable
+            <p className="text-caption text-gray-600 dark:text-gray-400">
+              Currency Exchange Data
             </p>
-            {currencyCode && (
-              <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
-                Unable to fetch rates for {currencyCode}
-              </p>
-            )}
           </div>
+        </div>
+
+        <div className="text-center py-8">
+          <div className="w-16 h-16 mx-auto bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center mb-4">
+            <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+            </svg>
+          </div>
+          <p className="text-body text-gray-600 dark:text-gray-400">
+            Exchange rate data unavailable
+          </p>
+          <p className="text-caption text-gray-500 dark:text-gray-500 mt-2">
+            {currencyCode ? `Unable to fetch rates for ${currencyCode}` : 'Currency data not available'}
+          </p>
         </div>
       </div>
     );
   }
 
   const { base, rates } = currency;
+  // Get top 4 most common currencies for display
+  const majorCurrencies = ['USD', 'EUR', 'GBP', 'JPY'];
+  const displayRates = Object.entries(rates).filter(([code]) => majorCurrencies.includes(code)).slice(0, 4);
 
   return (
-    <div className="card-enhanced rounded-2xl p-6 relative overflow-hidden group animate-slide-up">
-      {/* Currency Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-100/20 via-blue-100/20 to-purple-100/20 dark:from-green-900/20 dark:via-blue-900/20 dark:to-purple-900/20 opacity-50 group-hover:opacity-70 transition-opacity duration-500"></div>
-
+    <div className="card-primary p-6 h-full">
       {/* Header Section */}
-      <div className="relative flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center shadow-lg">
-            <span className="text-xl text-white">💱</span>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-              Exchange Rates
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Live rates from Frankfurter API
-            </p>
-          </div>
+      <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-600">
+        <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900 flex items-center justify-center">
+          <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+          </svg>
         </div>
+        <div>
+          <h3 className="text-heading font-bold text-gray-900 dark:text-gray-100">
+            Exchange Rates
+          </h3>
+          <p className="text-caption text-gray-600 dark:text-gray-400">
+            Live rates from {base}
+          </p>
+        </div>
+      </div>
 
-        {/* Base Currency Display */}
-        <div className="text-right">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">{getCurrencyFlag(base)}</span>
-            <div>
-              <div className="text-lg font-bold text-gray-900 dark:text-gray-100">
-                1 {base}
-              </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                {getCurrencySymbol(base)} Base
-              </div>
-            </div>
+      {/* Base Currency Display */}
+      <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+        <div className="text-center">
+          <div className="text-subheading font-bold text-gray-900 dark:text-gray-100 mb-1">
+            1 {base}
+          </div>
+          <div className="text-caption text-gray-600 dark:text-gray-400">
+            {getCurrencySymbol(base)} • Base Currency
           </div>
         </div>
       </div>
 
-      {/* Exchange Rates Grid */}
-      <div className="space-y-4 relative">
-        {Object.entries(rates).map(([code, rate]) => {
+      {/* Exchange Rates */}
+      <div className="space-y-3 mb-6">
+        {displayRates.map(([code, rate]) => {
           const trend = getRateTrend(rate);
           return (
             <div
               key={code}
-              className="flex items-center justify-between p-4 rounded-xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-white/40 dark:border-gray-600/40 hover:bg-white/80 dark:hover:bg-gray-700/80 transition-all duration-300 group/rate"
+              className="flex items-center justify-between p-3 bg-gray-50 dark:bg-slate-700 rounded-lg"
             >
               {/* Currency Info */}
-              <div className="flex items-center gap-4">
-                {/* Flag and Symbol */}
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">{getCurrencyFlag(code)}</span>
-                  <div className="text-2xl font-bold text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-600 flex items-center justify-center">
+                  <span className="text-small font-bold text-gray-700 dark:text-gray-300">
                     {getCurrencySymbol(code)}
-                  </div>
+                  </span>
                 </div>
-
-                {/* Currency Code */}
                 <div>
-                  <div className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                  <div className="text-caption font-bold text-gray-900 dark:text-gray-100">
                     {code}
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
-                    {code === 'USD' ? 'US Dollar' :
-                     code === 'EUR' ? 'Euro' :
-                     code === 'GBP' ? 'British Pound' :
-                     'Currency'}
+                  <div className="text-small text-gray-600 dark:text-gray-400">
+                    {getCurrencyName(code)}
                   </div>
                 </div>
               </div>
 
-              {/* Rate Display */}
+              {/* Rate and Trend */}
               <div className="text-right">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                <div className="flex items-center gap-2">
+                  <div className="text-caption font-bold text-gray-900 dark:text-gray-100">
                     {rate.toFixed(4)}
                   </div>
 
                   {/* Trend Indicator */}
-                  <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold
+                  <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-small font-medium
                                   ${trend.direction === 'up' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' :
                                     trend.direction === 'down' ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300' :
-                                    'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'}`}>
-                    <span>
-                      {trend.direction === 'up' ? '↗' :
-                       trend.direction === 'down' ? '↘' :
-                       '→'}
-                    </span>
-                    {trend.percentage.toFixed(2)}%
+                                    'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'}`}>
+                    {trend.direction === 'up' ? (
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 14l5-5 5 5" />
+                      </svg>
+                    ) : trend.direction === 'down' ? (
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 10l-5 5-5-5" />
+                      </svg>
+                    ) : (
+                      <div className="w-3 h-0.5 bg-current rounded-full"></div>
+                    )}
+                    <span>{trend.percentage.toFixed(2)}%</span>
                   </div>
-                </div>
-
-                <div className="text-xs text-gray-500 dark:text-gray-400">
-                  {formatCurrencyRate(rate, base, code)}
                 </div>
               </div>
             </div>
@@ -176,48 +172,18 @@ export default function CurrencyCard({ currency, currencyCode }: CurrencyCardPro
         })}
       </div>
 
-      {/* Comparison Chart Visual */}
-      <div className="mt-6 relative">
-        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-          Rate Comparison
-        </h4>
-        <div className="flex items-end justify-between h-16 bg-white/40 dark:bg-gray-800/40 rounded-xl p-3 backdrop-blur-sm border border-white/30 dark:border-gray-600/30">
-          {Object.entries(rates).map(([code, rate]) => {
-            const maxRate = Math.max(...Object.values(rates));
-            const height = (rate / maxRate) * 100;
-            return (
-              <div key={code} className="flex flex-col items-center gap-1">
-                <div
-                  className={`w-8 rounded-t transition-all duration-500 group-hover:scale-110
-                             ${code === 'USD' ? 'bg-blue-400' :
-                               code === 'EUR' ? 'bg-purple-400' :
-                               'bg-green-400'}`}
-                  style={{ height: `${height}%`, minHeight: '8px' }}
-                ></div>
-                <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
-                  {code}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Footer Info */}
-      <div className="mt-6 pt-4 border-t border-white/30 dark:border-gray-600/30 relative">
-        <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse-gentle"></div>
-            <span>Live rates • Updated daily</span>
+      <div className="pt-4 border-t border-gray-200 dark:border-gray-600">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-small text-gray-600 dark:text-gray-400">Live rates</span>
           </div>
-          <div className="text-gray-500 dark:text-gray-400">
+          <span className="text-small text-gray-500 dark:text-gray-400">
             Frankfurter API
-          </div>
+          </span>
         </div>
       </div>
-
-      {/* Hover Glow Effect */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-green-400/5 via-blue-400/5 to-purple-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { fetchCurrency } from '@/lib/fetchCurrency';
 import CountryCard from '@/components/CountryCard';
 import WeatherCard from '@/components/WeatherCard';
 import CurrencyCard from '@/components/CurrencyCard';
+import RefreshButton from '@/components/RefreshButton';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -37,170 +38,207 @@ export default async function CountryPage({ params }: CountryPageProps) {
   const currency = currencyResult.status === 'fulfilled' ? currencyResult.value : null;
 
   return (
-    <main className="relative min-h-screen overflow-hidden">
-      {/* Enhanced Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 dark:from-gray-900 dark:via-blue-900 dark:to-indigo-900"></div>
-
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating Orbs - Subtle version for dashboard */}
-        <div className="absolute top-10 left-10 w-64 h-64 bg-blue-300/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-10 right-20 w-80 h-80 bg-purple-300/10 rounded-full blur-3xl animate-float anim-delay-3s"></div>
-        <div className="absolute top-1/3 right-10 w-48 h-48 bg-indigo-300/10 rounded-full blur-3xl animate-float anim-delay-6s"></div>
-
-        {/* Subtle Pattern Overlay */}
-        <div className="absolute inset-0 opacity-5 dark:opacity-10">
-          <svg viewBox="0 0 100 100" className="w-full h-full">
-            <defs>
-              <pattern id="dashboard-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="10" cy="10" r="0.5" fill="currentColor" opacity="0.3"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#dashboard-pattern)"/>
-          </svg>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="relative max-w-7xl mx-auto p-6 md:p-8">
-        {/* Enhanced Header */}
-        <div className="mb-10">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-3 px-4 py-2 mb-8 rounded-xl
-                       bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm
-                       border border-white/40 dark:border-gray-600/40
-                       text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300
-                       font-medium transition-all duration-300 group
-                       hover:bg-white/80 dark:hover:bg-gray-700/80 hover:scale-105"
-          >
-            <span className="text-lg group-hover:-translate-x-1 transition-transform duration-300">←</span>
-            <span>Back to Search</span>
-          </Link>
-
-          <div className="flex items-center gap-4 mb-6">
-            <div className="text-5xl animate-float">🏳️</div>
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-                {country.name.common}
-              </h1>
-              <p className="text-xl text-gray-700 dark:text-gray-300 font-medium">
-                Complete Country Dashboard
-              </p>
-            </div>
-          </div>
-
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed">
-            Explore comprehensive data for {country.name.common} including live weather conditions,
-            current currency exchange rates, and essential country information — all updated in real-time.
-          </p>
-        </div>
-
-        {/* Enhanced Dashboard Grid with Staggered Animation */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-12 gap-8 mb-16">
-          {/* Country Info Card - Primary position, larger on desktop */}
-          <div className="xl:col-span-5 animate-slide-up">
-            <CountryCard country={country} />
-          </div>
-
-          {/* Weather Card - Prominent display */}
-          <div className="xl:col-span-4 animate-slide-up anim-delay-150">
-            <WeatherCard weather={weather} capital={capital} />
-          </div>
-
-          {/* Currency Card - Full width section */}
-          <div className="xl:col-span-3 animate-slide-up anim-delay-300">
-            <CurrencyCard currency={currency} currencyCode={currencyCode || undefined} />
-          </div>
-        </div>
-
-        {/* Enhanced Stats Overview */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          <div className="card-enhanced rounded-2xl p-6 text-center group animate-slide-up anim-delay-450">
-            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🌍</div>
-            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-              {country.region}
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-              Region
-            </div>
-          </div>
-
-          <div className="card-enhanced rounded-2xl p-6 text-center group animate-slide-up anim-delay-600">
-            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">👥</div>
-            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-              {country.population?.toLocaleString() || 'N/A'}
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-              Population
-            </div>
-          </div>
-
-          <div className="card-enhanced rounded-2xl p-6 text-center group animate-slide-up anim-delay-750">
-            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">📏</div>
-            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-              {country.area?.toLocaleString() || 'N/A'}
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-              Area (km²)
-            </div>
-          </div>
-
-          <div className="card-enhanced rounded-2xl p-6 text-center group animate-slide-up anim-delay-900">
-            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🌐</div>
-            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-              {country.timezones?.length || 0}
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-              Timezone{(country.timezones?.length || 0) !== 1 ? 's' : ''}
-            </div>
-          </div>
-        </div>
-
-        {/* Enhanced Footer */}
-        <div className="relative">
-          {/* Footer Background Card */}
-          <div className="card-enhanced rounded-2xl p-8 text-center animate-slide-up anim-delay-1050">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
-                <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse-gentle"></div>
-                <span className="text-sm font-semibold">Live Data</span>
-              </div>
-              <span className="text-gray-400">•</span>
-              <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
-                <div className="w-3 h-3 rounded-full bg-blue-500 animate-pulse-gentle" style={{ animationDelay: '1s' }}></div>
-                <span className="text-sm font-semibold">Real-time Updates</span>
-              </div>
-            </div>
-
-            <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg">
-              Data provided by REST Countries, Open-Meteo, and Frankfurter APIs
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+    <main className="min-h-screen bg-gray-50 dark:bg-slate-900">
+      {/* Professional Header */}
+      <header className="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+        <div className="responsive-container max-w-7xl mx-auto py-4">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div className="flex items-center gap-4">
               <Link
                 href="/"
-                className="inline-flex items-center gap-3 px-6 py-3 rounded-xl
-                           bg-gradient-to-r from-blue-600 to-blue-700
-                           hover:from-blue-700 hover:to-blue-800
-                           text-white font-semibold transition-all duration-300
-                           hover:scale-105 hover:shadow-lg group"
+                className="btn-secondary flex items-center gap-2 responsive-button"
               >
-                <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                 </svg>
-                Explore Another Country
+                <span className="phone-hidden">Back to Search</span>
+                <span className="phone-only hidden">Back</span>
               </Link>
 
-              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                <span>or</span>
-                <span className="text-gray-400">refresh this page to update data</span>
+              <div className="hidden sm:block w-px h-8 bg-gray-200 dark:bg-gray-600"></div>
+
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <svg className="w-3 h-3 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                          d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">{country.name.common}</h1>
+                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Analytics Dashboard</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 sm:gap-4">
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-gray-600 dark:text-gray-400">Live Data</span>
+              </div>
+
+              <RefreshButton />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Country Overview Banner */}
+      <section className="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+            <div className="flex items-center gap-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center text-2xl">
+                {country.flag || '🏳️'}
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                  {country.name.common}
+                </h1>
+                <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
+                  <span className="flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {country.region}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    {capital || 'N/A'}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    {country.population?.toLocaleString() || 'N/A'} people
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <div className="card-accent px-4 py-2 text-center">
+                <div className="text-caption font-medium text-gray-600 dark:text-gray-400">ISO Code</div>
+                <div className="text-subheading font-bold text-gray-900 dark:text-gray-100">
+                  {country.cca2}
+                </div>
+              </div>
+              <div className="card-accent px-4 py-2 text-center">
+                <div className="text-caption font-medium text-gray-600 dark:text-gray-400">Area</div>
+                <div className="text-subheading font-bold text-gray-900 dark:text-gray-100">
+                  {country.area ? `${country.area.toLocaleString()} km²` : 'N/A'}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
+      {/* Key Metrics Row */}
+      <section className="py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
+            <div className="card-primary p-4 sm:p-6 text-center animate-fade-in">
+              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mx-auto mb-2 sm:mb-4">
+                <svg className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="text-sm sm:text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">
+                {country.region}
+              </div>
+              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Region</div>
+            </div>
+
+            <div className="card-primary p-6 text-center animate-fade-in stagger-delay-1">
+              <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <div className="text-heading font-bold text-gray-900 dark:text-gray-100 mb-1">
+                {country.population ? country.population.toLocaleString() : 'N/A'}
+              </div>
+              <div className="text-caption text-gray-600 dark:text-gray-400">Population</div>
+            </div>
+
+            <div className="card-primary p-6 text-center animate-fade-in stagger-delay-2">
+              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                </svg>
+              </div>
+              <div className="text-heading font-bold text-gray-900 dark:text-gray-100 mb-1">
+                {country.area ? `${country.area.toLocaleString()}` : 'N/A'}
+              </div>
+              <div className="text-caption text-gray-600 dark:text-gray-400">Area (km²)</div>
+            </div>
+
+            <div className="card-primary p-6 text-center animate-fade-in stagger-delay-3">
+              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="text-heading font-bold text-gray-900 dark:text-gray-100 mb-1">
+                {country.timezones?.length || 0}
+              </div>
+              <div className="text-caption text-gray-600 dark:text-gray-400">
+                Timezone{(country.timezones?.length || 0) !== 1 ? 's' : ''}
+              </div>
+            </div>
+          </div>
+
+          {/* Main Dashboard Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8">
+            {/* Country Details - Large card */}
+            <div className="lg:col-span-5 animate-slide-up">
+              <CountryCard country={country} />
+            </div>
+
+            {/* Weather Card */}
+            <div className="lg:col-span-4 animate-slide-up stagger-delay-1">
+              <WeatherCard weather={weather} capital={capital} />
+            </div>
+
+            {/* Currency Card */}
+            <div className="lg:col-span-3 animate-slide-up stagger-delay-2">
+              <CurrencyCard currency={currency} currencyCode={currencyCode || undefined} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="mt-16 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-small text-gray-600 dark:text-gray-400">
+                  Data updated in real-time
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-6 text-small text-gray-500 dark:text-gray-400">
+              <span>REST Countries API</span>
+              <span>•</span>
+              <span>Open-Meteo Weather</span>
+              <span>•</span>
+              <span>Frankfurter Exchange</span>
+            </div>
+
+            <Link href="/" className="btn-primary px-6 py-2">
+              Explore Another Country
+            </Link>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

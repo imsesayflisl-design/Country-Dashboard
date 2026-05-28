@@ -6,6 +6,9 @@ export interface Country {
     common: string;
     official: string;
   };
+  cca2: string;        // ISO 3166-1 alpha-2 code (e.g., "US")
+  cca3: string;        // ISO 3166-1 alpha-3 code (e.g., "USA")
+  flag: string;        // Unicode flag emoji (e.g., "🇺🇸")
   capital?: string[];
   flags: {
     png: string;
@@ -27,6 +30,7 @@ export interface Weather {
   current_weather: {
     temperature: number;
     windspeed: number;
+    winddirection: number;  // Wind direction in degrees (0-360)
     weathercode: number;
   };
 }
@@ -38,6 +42,7 @@ export interface ExchangeRates {
     USD: number;
     EUR: number;
     GBP: number;
+    JPY: number;
   };
 }
 

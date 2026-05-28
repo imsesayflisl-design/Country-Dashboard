@@ -3,7 +3,7 @@ import { ExchangeRates } from '@/types';
 export async function fetchCurrency(currencyCode: string): Promise<ExchangeRates | null> {
   try {
     const response = await fetch(
-      `https://api.frankfurter.app/latest?from=${currencyCode}&to=USD,EUR,GBP`
+      `https://api.frankfurter.app/latest?from=${currencyCode}&to=USD,EUR,GBP,JPY`
     );
 
     if (!response.ok) {

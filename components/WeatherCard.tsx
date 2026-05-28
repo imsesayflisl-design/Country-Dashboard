@@ -1,3 +1,4 @@
+import React from 'react';
 import { Weather } from '@/types';
 import { getWeatherDescription } from '@/lib/fetchWeather';
 

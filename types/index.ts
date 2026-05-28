@@ -8,7 +8,6 @@ export interface Country {
   };
   cca2: string;        // ISO 3166-1 alpha-2 code (e.g., "US")
   cca3: string;        // ISO 3166-1 alpha-3 code (e.g., "USA")
-  flag: string;        // Unicode flag emoji (e.g., "🇺🇸")
   capital?: string[];
   flags: {
     png: string;

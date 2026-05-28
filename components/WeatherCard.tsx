@@ -8,7 +8,7 @@ interface WeatherCardProps {
 }
 
 // Helper function to get weather icon SVG
-function getWeatherIcon(weatherCode: number): JSX.Element {
+function getWeatherIcon(weatherCode: number): React.ReactElement {
   if (weatherCode === 0 || weatherCode === 1) {
     return (
       <svg className="w-12 h-12 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
